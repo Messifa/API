@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "c1zuaYsmRJRNDmXdab6AzyMrqmBovpG6jIWscZ+rW9Y=",
+  "Source": "DocAppointApi",
+  "BasePath": "_content/DocAppointApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

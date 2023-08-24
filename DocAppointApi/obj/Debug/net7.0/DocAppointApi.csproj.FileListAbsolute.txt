@@ -1,10 +1,3 @@
-C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.csproj.AssemblyReference.cache
-C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.AssemblyInfoInputs.cache
-C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.AssemblyInfo.cs
-C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.csproj.CoreCompileInputs.cache
-C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\bin\Debug\net7.0\appsettings.Development.json
 C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\bin\Debug\net7.0\appsettings.json
 C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\bin\Debug\net7.0\DocAppointApi.exe
@@ -32,6 +25,13 @@ C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\bin\Debug\net7.0\Swashbuc
 C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\bin\Debug\net7.0\System.CodeDom.dll
 C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.csproj.AssemblyReference.cache
+C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.AssemblyInfoInputs.cache
+C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.AssemblyInfo.cs
+C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.csproj.CoreCompileInputs.cache
+C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\DocAppointApi.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\staticwebassets\msbuild.DocAppointApi.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\staticwebassets\msbuild.build.DocAppointApi.props
 C:\Users\DELL\source\repos\DocAppointApi\DocAppointApi\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.DocAppointApi.props

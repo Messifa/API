@@ -12,6 +12,7 @@ namespace DocAppointApi.Models
         public int RDVId { get; set; }
         public DateTime Datedb { get; set; }
         public string RDVlibelle { get; set; }
+        public string Category { get; set; }
         public DateTime Datefin { get; set; }
         [ForeignKey("medocId")]
         public int medocId { get; set; }
@@ -20,7 +21,9 @@ namespace DocAppointApi.Models
         [ForeignKey("PatientId")]
         public int PatientId { get; set; }
         public Patient Patient { get; set; }
-
+        [ForeignKey("RDVPId")]
+        public int RDVPId { get; set; }
+        public  Statut Statut { get; set; }
 
     }
 }

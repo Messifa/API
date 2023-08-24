@@ -8,6 +8,7 @@ using DocAppointApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
+using System.Collections.Generic;
 
 namespace DocAppointApi.Services
 {
@@ -19,42 +20,43 @@ namespace DocAppointApi.Services
         {
             _dbContext = dbContext;
         }
+        
 
-        public async Task<User> RegisterUser(User user)
-        {
-            try
-            {
-                // Vérifier si l'utilisateur existe déjà dans la base de données à l'aide de "user.Email"
-                if (CheckIfUserExists(user.Email))
-                {
-                    throw new Exception("Un utilisateur avec cet e-mail existe déjà.");
-                }
+        
+        
 
-                // Enregistrer l'utilisateur dans la base de données
-                _dbContext.Users.Add(user);
-                await _dbContext.SaveChangesAsync();
-
-                return user;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erreur lors de l'inscription de l'utilisateur : " + ex.Message, ex);
-            }
-        }
-
-        public async Task<User> LoginUser(string email, string password)
+        public async Task<Patient> LoginPatient(string email, string password)
         {
             try
             {
                 // Rechercher et vérifier l'utilisateur dans la base de données
-                var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+                var patient = await _dbContext.Patients.FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
 
-                if (user == null)
+                if (patient == null)
                 {
                     throw new Exception("Les informations de connexion sont invalides.");
                 }
 
-                return user;
+                return patient;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la connexion de l'utilisateur : " + ex.Message);
+            }
+        }
+        public async Task<Medecin> LoginMedecin(string email, string password)
+        {
+            try
+            {
+                // Rechercher et vérifier l'utilisateur dans la base de données
+                var medecin = await _dbContext.Medecins.FirstOrDefaultAsync(m => m.Email == email && m.Password == password);
+
+                if (medecin == null)
+                {
+                    throw new Exception("Les informations de connexion sont invalides.");
+                }
+
+                return medecin;
             }
             catch (Exception ex)
             {
@@ -62,10 +64,39 @@ namespace DocAppointApi.Services
             }
         }
 
-        private bool CheckIfUserExists(string email)
+        public async Task<Adminis> LoginAdmin(string email, string password)
+        {
+            try
+            {
+                // Rechercher et vérifier l'utilisateur dans la base de données
+                var admin = await _dbContext.Adminis.FirstOrDefaultAsync(a => a.Email == email && a.Password == password);
+
+                if (admin == null)
+                {
+                    throw new Exception("Les informations de connexion sont invalides.");
+                }
+
+                return admin;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la connexion de l'utilisateur : " + ex.Message);
+            }
+        }
+        private bool CheckIfPatientExists(string email)
         {
             // Vérifier si l'utilisateur existe déjà dans la base de données
-            return _dbContext.Users.Any(u => u.Email == email);
+            return _dbContext.Patients.Any(p => p.Email == email);
+        }
+        private bool CheckIfMedecinExists(string email)
+        {
+            // Vérifier si l'utilisateur existe déjà dans la base de données
+            return _dbContext.Medecins.Any(m => m.Email == email);
+        }
+        private bool CheckIfAdminExists(string email)
+        {
+            // Vérifier si l'utilisateur existe déjà dans la base de données
+            return _dbContext.Adminis.Any(a => a.Email == email);
         }
 
         public async Task<User> GetUserByEmail(string email)
@@ -82,6 +113,19 @@ namespace DocAppointApi.Services
                 throw new Exception("Erreur lors de la recherche de l'utilisateur : " + ex.Message);
             }
 
+        }
+
+       
+        public async Task<List<Patient>> GetPatientsAsync()
+        {
+            var patients = await _dbContext.Patients.ToListAsync();
+            return patients;
+        }
+        public async Task<List<Medecin>> GetMedecinsAsync()
+        {
+            
+          var medecin=  await _dbContext.Medecins.ToListAsync();
+            return medecin;
         }
 
         private string GenerateJwtToken(User user)

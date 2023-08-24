@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DocAppointApi.Datas;
 using DocAppointApi.Models;
 using DocAppointApi.Repositories;
 using DocAppointApi.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace DocAppointApi.Services
 {
     public class AdminService
     {
+        private readonly DbContextRed _dbContext;
         private readonly RDVRepository _rdvRepository;
 
-        public AdminService(RDVRepository rdvRepository)
+        public AdminService(RDVRepository rdvRepository, DbContextRed dbContext)
         {
             _rdvRepository = rdvRepository;
+            _dbContext = dbContext;
         }
+       
+
 
         public async Task<RDVM> ValidateAppointment(int RDVMId, string RDVlibelle)
         {
@@ -61,5 +67,7 @@ namespace DocAppointApi.Services
                 throw new Exception("Erreur lors de la récupération du statut du rendez-vous : " + ex.Message);
             }
         }
+
+       
     }
 }

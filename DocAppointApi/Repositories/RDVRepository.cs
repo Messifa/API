@@ -13,16 +13,15 @@ namespace DocAppointApi.Repositories
         {
             _dbcontext = dbcontext;
         }
-        
-        public async Task<Patient> GetPatientById(int patientId)
-        {
-            return await _dbcontext.Patients.FirstOrDefaultAsync(p => p.PatientId == patientId);
-        }
 
-        public async Task<Medecin> GetMedecinById(int medocId)
-        {
-            return await _dbcontext.Medecins.FirstOrDefaultAsync(m => m.medocId == medocId);
-        }
+       // public async Task<List<Medecin>> GetAvailableDoctors(DateTime appointmentDateTime)
+      //  {
+      //      var availableDoctors = await _dbcontext.Medecins
+       //         .Where(m => m.RDVM.Any(r => r.Datedb == appointmentDateTime))
+       //         .ToListAsync();
+
+        //    return availableDoctors;
+      //  }
 
         public async Task<RDVM> CreateAppointment(RDVM appointment)
         {
@@ -36,9 +35,12 @@ namespace DocAppointApi.Repositories
             return await _dbcontext.RDVMs.FirstOrDefaultAsync(a => a.RDVId == RDVMId);
         }
 
+
         public async Task SaveChanges()
         {
             await _dbcontext.SaveChangesAsync();
         }
+
+       
     }
 }

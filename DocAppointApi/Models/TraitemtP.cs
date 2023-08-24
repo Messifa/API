@@ -8,6 +8,7 @@ namespace DocAppointApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public string Pid { get; set; }
         public string MedocTr {get; set; }
         public string MedocAvis { get; set; }
     }

@@ -7,6 +7,6 @@ namespace DocAppointApi.Models
         [Key] public int malaid { get; set; }
 
         public string designationM { get; set; }
-        public string descriptionM { get; set; }
+        
     }
 }

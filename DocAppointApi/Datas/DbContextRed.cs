@@ -18,6 +18,7 @@ namespace DocAppointApi.Datas
         public DbSet<TraitemtP> TraitemtPs { get; set; }
         public DbSet<Specialite> Specialites { get; set; }
         public DbSet<RDVM> RDVMs { get; set; }
+        
         public DbSet<Statut> Statuts { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -28,31 +29,6 @@ namespace DocAppointApi.Datas
             modelBuilder.Entity<Patient>().ToTable("Patients");
             modelBuilder.Entity<Adminis>().ToTable("Adminis");
         }
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        // modelBuilder.Entity<Patient>()
-        //    .HasMany(p => p.MalariaCuire)
-        //    .WithOne(p => p.Patient)
-        //    .HasForeignKey("malaid");
-
-        // modelBuilder.Entity<Medecin>()
-        //   .HasMany(m => m.Specialite)
-        //   .WithOne(m => m.Medecin)
-        //    .HasForeignKey("speid");
-
-        //  modelBuilder.Entity<RDVM>()
-        //    .HasMany(r => r.Patient)
-        //    .WithOne(r => r.Patient)
-        //     .HasForeignKey("PatientId", "medocId");
-
-
-        // modelBuilder.Entity<Consecration>()
-        //     .HasMany(c => c.Patient)
-        //     .WithOne(c => c.Consecration)
-        //     .HasForeignKey("PatientId", "medocId");
-        //
-
-
-        // }
+       
     }
 }

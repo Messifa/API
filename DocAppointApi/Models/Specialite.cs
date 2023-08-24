@@ -6,10 +6,13 @@ namespace DocAppointApi.Models
     public class Specialite
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
-        public int speid { get; set; }
-        public string Designation { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public DateTime AppointmentTime { get; set; }
         public string Description { get; set; }
+        public string Category { get; set; }
+        public int PatientId { get; set; }
+        public int DoctorId { get; set; }
 
     }
 }

@@ -11,7 +11,7 @@ namespace DocAppointApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int userId { get; set; }
-        public required string username { get; set; }
+        public  string username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
@@ -30,5 +30,6 @@ namespace DocAppointApi.Models
             }
         }
         public string Avatar { get; set; }
+        
     }
 }

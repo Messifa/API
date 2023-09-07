@@ -6,6 +6,7 @@ namespace DocAppointApi.Models
 {
     public class Patient: User
     {
+        public int Patientid { get; set; }
         
         public string AdresseP { get; set; }
         public string Sexe { get; set; }

@@ -85,30 +85,34 @@ namespace DocAppointApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("Appoint")]
-        public IActionResult Appointment(RDVM Appointmt)
+        [HttpPost("BookAppointment")]
+        public IActionResult BookAppointment(RDVM Appointmt)
         {
             try
             {
+                var newRDV = new RDVM
+                {
+                    Datedb = Appointmt.Datedb,
+                    RDVlibelle = Appointmt.RDVlibelle,
+                    Category = Appointmt.Category,
+
+                };
                 var availableDoctors = GetAvailableDoctors(Appointmt.Category, Appointmt.Datedb);
                 if (availableDoctors == null || availableDoctors.Count == 0)
                 {
                     return BadRequest("Aucun médecin disponible à cette heure dans cette catégorie.");
                 }
 
-                var newRDV = new RDVM
+                var selectedDoctor = availableDoctors.FirstOrDefault(d => d.Specialite == Appointmt.Category);
+                if (selectedDoctor == null)
                 {
-                    Datedb = Appointmt.Datedb,
-                    RDVlibelle = Appointmt.RDVlibelle,
-                    Category = Appointmt.Category,
-                    medocId = Appointmt.medocId
-                };
+                    return BadRequest("Médecin introuvable.");
+                }
 
                 _dbContext.RDVMs.Add(newRDV);
                 _dbContext.SaveChanges();
 
-                return Ok("Votre demande a été enregistrée");
+                return Ok("Votre demande de rendez-vous a été enregistrée.");
             }
             catch (Exception ex)
             {
@@ -119,10 +123,48 @@ namespace DocAppointApi.Controllers
         private List<Medecin> GetAvailableDoctors(string category, DateTime datedb)
         {
             return _dbContext.Medecins
-                .Where(d => d.Specialite == category &&
-                            !_dbContext.RDVMs.Any(a => a.medocId == d.userId && a.Datedb == datedb))
+                .Where(d => d.Specialite == category 
+                            )
                 .ToList();
         }
+
+        //[HttpPost("Appoint")]
+       // public IActionResult Appointment(RDVM Appointmt)
+       // {
+          //  try
+          //  {
+              //  var availableDoctors = GetAvailableDoctors(Appointmt.Category, Appointmt.Datedb);
+              //  if (availableDoctors == null || availableDoctors.Count == 0)
+              //  {
+              //      return BadRequest("Aucun médecin disponible à cette heure dans cette catégorie.");
+              //  }
+
+           //     var newRDV = new RDVM
+            //    {
+              //      Datedb = Appointmt.Datedb,
+                //    RDVlibelle = Appointmt.RDVlibelle,
+                  //  Category = Appointmt.Category,
+                    //medocId = Appointmt.medocId
+             //   };
+
+            //    _dbContext.RDVMs.Add(newRDV);
+            //    _dbContext.SaveChanges();
+
+             //   return Ok("Votre demande a été enregistrée");
+          //  }
+          //  catch (Exception ex)
+         //   {
+             //   return BadRequest("Une erreur s'est produite lors de la création du RDV.");
+         //   }
+       // }
+
+       // private List<Medecin> GetAvailableDoctors(string category, DateTime datedb)
+       // {
+          //  return _dbContext.Medecins
+          //      .Where(d => d.Specialite == category &&
+          //                  !_dbContext.RDVMs.Any(a => a.medocId == d.userId && a.Datedb == datedb))
+          //      .ToList();
+       // }
 
         [HttpGet("consultations")]
         public async Task<IActionResult> GetConsultationsByPatientLastName(string lastName)

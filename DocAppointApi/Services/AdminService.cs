@@ -66,8 +66,25 @@ namespace DocAppointApi.Services
             {
                 throw new Exception("Erreur lors de la récupération du statut du rendez-vous : " + ex.Message);
             }
+
+            
+        }
+        public async Task<List<Consecration>> GetConsultationsAsync()
+        {
+            var cons = await _dbContext.Consecrations.ToListAsync();
+            return cons;
+        }
+        public async Task<List<TraitemtP>> GetTraitementsAsync()
+        {
+            var trais = await _dbContext.TraitemtPs.ToListAsync();
+            return trais;
+        }
+        public async Task<List<RDVM>> GetAppointmentsAsync()
+        {
+            var appoint = await _dbContext.RDVMs.ToListAsync();
+            return appoint;
         }
 
-       
+
     }
 }

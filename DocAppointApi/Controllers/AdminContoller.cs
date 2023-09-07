@@ -64,7 +64,7 @@ namespace DocAppointApi.Controllers
                     // Retourner une réponse "Ok" avec le jeton
                     return Ok("vous etes connectes");
                 }
-                // Sinon, renvoyer une réponse "BadRequest" avec un message d'erreur indiquant que les informations de connexion sont invalides
+                // Sinon, renvoyer une réponse "BadRequest" avec un message d'erreur indiquant que les informations de connexion sont invalides 
                 else
                 {
                     return BadRequest("Les informations de connexion sont invalides.");
@@ -93,8 +93,7 @@ namespace DocAppointApi.Controllers
                     AppointmentTime = app.Datedb,
                     Description = app.RDVlibelle,
                     Category = app.Category,
-                    PatientId = app.PatientId,
-                    DoctorId = app.medocId
+                    
                 };
                 _dbContext.Specialites.Add(valideapp);
                 _dbContext.RDVMs.Remove(app);
@@ -146,9 +145,33 @@ namespace DocAppointApi.Controllers
                 return Ok(medecins);
           
         }
-        
-       
-        
+
+        [HttpGet("consultations")]
+        public async Task<ActionResult<List<Consecration>>> GetConsultations()
+        {
+            var cins = await _adminService.GetConsultationsAsync();
+
+            return Ok(cins);
+
+        }
+
+        [HttpGet("traitements")]
+        public async Task<ActionResult<List<TraitemtP>>> GetTraitments()
+        {
+            var mede = await _adminService.GetTraitementsAsync();
+
+            return Ok(mede);
+
+        }
+        [HttpGet("appointments")]
+        public async Task<ActionResult<List<RDVM>>> GetAppoints()
+        {
+            var lespatient = await _adminService.GetAppointmentsAsync();
+            return Ok(lespatient);
+        }
+
+
+
         private object CreateSessionToken(User authenticatedAdminis)
         {
             try

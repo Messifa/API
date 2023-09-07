@@ -14,16 +14,8 @@ namespace DocAppointApi.Models
         public string RDVlibelle { get; set; }
         public string Category { get; set; }
         public DateTime Datefin { get; set; }
-        [ForeignKey("medocId")]
-        public int medocId { get; set; }
-        public Medecin Medecin{ get; set; }
-
-        [ForeignKey("PatientId")]
-        public int PatientId { get; set; }
-        public Patient Patient { get; set; }
-        [ForeignKey("RDVPId")]
-        public int RDVPId { get; set; }
-        public  Statut Statut { get; set; }
+        
+        
 
     }
 }

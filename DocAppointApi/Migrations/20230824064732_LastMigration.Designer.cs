@@ -3,6 +3,7 @@ using System;
 using DocAppointApi.Datas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DocAppointApi.Migrations
 {
     [DbContext(typeof(DbContextRed))]
-    partial class DbContextRedModelSnapshot : ModelSnapshot
+    [Migration("20230824064732_LastMigration")]
+    partial class LastMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,11 +90,32 @@ namespace DocAppointApi.Migrations
                     b.Property<DateTime>("Datefin")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("MedecinuserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RDVPId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("RDVlibelle")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("StatutRDVPId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("medocId")
+                        .HasColumnType("integer");
+
                     b.HasKey("RDVId");
+
+                    b.HasIndex("MedecinuserId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("StatutRDVPId");
 
                     b.ToTable("RDVMs");
                 });
@@ -234,6 +258,9 @@ namespace DocAppointApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("validation")
+                        .HasColumnType("boolean");
+
                     b.ToTable("Medecins", (string)null);
                 });
 
@@ -255,6 +282,33 @@ namespace DocAppointApi.Migrations
                     b.HasIndex("malaid");
 
                     b.ToTable("Patients", (string)null);
+                });
+
+            modelBuilder.Entity("DocAppointApi.Models.RDVM", b =>
+                {
+                    b.HasOne("DocAppointApi.Models.Medecin", "Medecin")
+                        .WithMany()
+                        .HasForeignKey("MedecinuserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DocAppointApi.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DocAppointApi.Models.Statut", "Statut")
+                        .WithMany()
+                        .HasForeignKey("StatutRDVPId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Medecin");
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Statut");
                 });
 
             modelBuilder.Entity("DocAppointApi.Models.Adminis", b =>

@@ -3,6 +3,7 @@ using System;
 using DocAppointApi.Datas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DocAppointApi.Migrations
 {
     [DbContext(typeof(DbContextRed))]
-    partial class DbContextRedModelSnapshot : ModelSnapshot
+    [Migration("20230812072602_second")]
+    partial class second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,6 +63,10 @@ namespace DocAppointApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("malaid"));
 
+                    b.Property<string>("descriptionM")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("designationM")
                         .IsRequired()
                         .HasColumnType("text");
@@ -77,51 +84,51 @@ namespace DocAppointApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RDVId"));
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("Datedb")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("Datefin")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("MedecinuserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("RDVlibelle")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("medocId")
+                        .HasColumnType("integer");
+
                     b.HasKey("RDVId");
+
+                    b.HasIndex("MedecinuserId");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("RDVMs");
                 });
 
             modelBuilder.Entity("DocAppointApi.Models.Specialite", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("speid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("AppointmentTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("speid"));
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Designation")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
+                    b.HasKey("speid");
 
                     b.ToTable("Specialites");
                 });
@@ -230,9 +237,16 @@ namespace DocAppointApi.Migrations
                 {
                     b.HasBaseType("DocAppointApi.Models.User");
 
-                    b.Property<string>("Specialite")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("medocId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("sperid")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("validation")
+                        .HasColumnType("boolean");
+
+                    b.HasIndex("sperid");
 
                     b.ToTable("Medecins", (string)null);
                 });
@@ -244,6 +258,9 @@ namespace DocAppointApi.Migrations
                     b.Property<string>("AdresseP")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Sexe")
                         .IsRequired()
@@ -257,6 +274,25 @@ namespace DocAppointApi.Migrations
                     b.ToTable("Patients", (string)null);
                 });
 
+            modelBuilder.Entity("DocAppointApi.Models.RDVM", b =>
+                {
+                    b.HasOne("DocAppointApi.Models.Medecin", "Medecin")
+                        .WithMany()
+                        .HasForeignKey("MedecinuserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DocAppointApi.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Medecin");
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("DocAppointApi.Models.Adminis", b =>
                 {
                     b.HasOne("DocAppointApi.Models.User", null)
@@ -268,11 +304,19 @@ namespace DocAppointApi.Migrations
 
             modelBuilder.Entity("DocAppointApi.Models.Medecin", b =>
                 {
+                    b.HasOne("DocAppointApi.Models.Specialite", "Specialite")
+                        .WithMany()
+                        .HasForeignKey("sperid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DocAppointApi.Models.User", null)
                         .WithOne()
                         .HasForeignKey("DocAppointApi.Models.Medecin", "userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Specialite");
                 });
 
             modelBuilder.Entity("DocAppointApi.Models.Patient", b =>
